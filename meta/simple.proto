@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package template;
+
+option go_package="app/simple;simple";
+
+message SimpleIndexRequest {
+  string query = 1;
+  int32 page_number = 2;
+  int32 result_per_page = 3;
+}
+
+message SimpleIndexResponse {
+  string result = 1;
+  int32 code = 2;
+}
+
+service Simple {
+  rpc SimpleIndex(SimpleIndexRequest) returns (SimpleIndexResponse) {}
+}
+
