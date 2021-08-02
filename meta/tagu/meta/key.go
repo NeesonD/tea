@@ -127,7 +127,3 @@ func (k Key) AscNullsFIRST() string {
 func (k Key) Distinct() string {
 	return fmt.Sprintf("DISTINCT %s ", k)
 }
-
-func (k Key) Excluded() string {
-	return fmt.Sprintf("%s = EXCLUDED.%s", k, k)
-}
