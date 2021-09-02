@@ -1,0 +1,28 @@
+// TODO 找唯一标识
+BEGIN
+{
+  print("Start tracing client rpc-call...");
+  @ct = nsecs;
+}
+
+// 使用 uprobe 探针在进入函数调用的时候记录起始时间
+uprobe:/home/neeson/go/0902/client:0x5b8220
+{
+    printf("Call begin at: ");
+    time("%Y-%m-%d %H:%M:%S");
+    @ct = nsecs;
+    print("");
+}
+
+// 使用 uprobe 探针记录下一个函数调用的时间
+uprobe:/home/neeson/go/0902/client:0x4c21e0
+{
+    printf("     finish at: ");
+    time("%Y-%m-%d %H:%M:%S");
+    printf("\n     call take: %d ms\n\n", (nsecs-@ct)/1000000)
+}
+
+END
+{
+  clear(@ct);
+}
